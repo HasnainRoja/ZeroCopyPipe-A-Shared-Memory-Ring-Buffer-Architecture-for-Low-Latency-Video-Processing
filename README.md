@@ -37,13 +37,3 @@ Relative improvement is approximately **2.0–2.4×** in mean latency. The 99th-
 - Privacy-preserving synthetic 1080p surgical-style workload
 
 ---
-
-## 3. Architecture
-
-Parent process
-  ├── create shared memory region + eventfds
-  ├── fork → Denoiser  ──┐
-  ├── fork → Edge      ──┼── concurrent in-place processing
-  ├── fork → Overlay   ──┘     on the same ring slot
-  ├── fork → Display         latency measurement / CSV output
-  └── fork → Producer        single write of pixels into a free slot
