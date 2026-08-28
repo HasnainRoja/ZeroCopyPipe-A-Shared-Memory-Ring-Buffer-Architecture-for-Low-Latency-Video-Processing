@@ -1,0 +1,2 @@
+# ZeroCopyPipe-A-Shared-Memory-Ring-Buffer-Architecture-for-Low-Latency-Video-Processing
+Zero-copy multi-process surgical video pipeline in C on Linux. Five processes share 1080p frames via a POSIX shared-memory ring buffer, coordinated with eventfd and atomic ref-counts—no inter-stage pixel copies. Benchmarked against a memcpy baseline (~2.0–2.4× faster, 0 drops) and tested with mlock/SCHED_FIFO for tail latency.
