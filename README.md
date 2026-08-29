@@ -2,38 +2,146 @@
 
 ### A Shared-Memory Ring-Buffer Architecture for Low-Latency Video Processing
 
-Zero-copy multi-process pipeline in C on Linux for high-resolution video workloads. Five cooperating processes share 1080p frames through a POSIX shared-memory ring buffer, coordinated with `eventfd` and atomic reference counts, eliminating inter-stage pixel copies. The design is evaluated against a `memcpy`-based baseline (approximately 2.0–2.4× lower average latency, zero frame drops) and under optional `mlock` / `SCHED_FIFO` configurations for tail-latency analysis.
+**Operating Systems · Multi-Process Systems · Performance Engineering**
+
+ZeroCopyPipe is a Linux C project that optimizes how large video frames move between processes. Instead of copying ~6 MB 1080p frames from stage to stage, processes share one POSIX shared-memory ring buffer and coordinate with `eventfd` and atomic reference counts.
 
 ---
 
-## 1. Overview
+## 1. What is this project about?
 
-Full-frame RGB video at 1080p occupies on the order of six megabytes per frame. In a multi-stage software pipeline—capture, denoising, edge extraction, overlay, and display—transferring each frame by repeated copying between processes incurs substantial memory-bandwidth cost and increases end-to-end latency.
+In multi-stage video pipelines (capture → enhance → analyze → display), each stage is often a separate process. The usual approach **copies** the full frame into each stage’s private buffer. At 1080p RGB, that is millions of bytes per handoff, which wastes memory bandwidth and increases latency.
 
-**ZeroCopyPipe** addresses this problem at the operating-system level. Frames reside in a bounded **shared-memory ring buffer**. A producer process writes each frame once into a slot; three analysis processes operate on that same mapped memory; a display process records timing. Synchronization uses per-consumer event descriptors and atomic reference counts rather than payload copies.
+This project treats that as an **operating-systems problem**: inter-process data movement, synchronization, scheduling, and measurement—not as a computer-vision product.
 
-A sequential **copy-based baseline** implements the same logical stages with explicit `memcpy` between buffers. Side-by-side measurement isolates the effect of data-movement policy.
-
-### Representative results (600 frames)
-
-| Pipeline | Average latency | Frame drops |
-|----------|-----------------|-------------|
-| Zero-copy (shared memory) | ~1.5–1.7 ms | 0 |
-| Copy baseline (`memcpy`) | ~3.4–4.0 ms | — |
-
-Relative improvement is approximately **2.0–2.4×** in mean latency. The 99th-percentile latency remains under a 70 ms clinical-style reference threshold. With privileged `mlock` and producer `SCHED_FIFO`, observed P99 latency improved further (approximately 3.1 ms in the best configuration).
+**Domain motivation:** surgical / endoscopic-style video, where delay and jitter matter.  
+**Technical focus:** processes, shared memory, IPC, and evidence-based optimization.
 
 ---
 
-## 2. Features
+## 2. What does it do?
 
-- Multi-process architecture using `fork` (producer, three consumers, display)
-- POSIX shared-memory ring buffer (`shm_open`, `ftruncate`, `mmap`)
-- Zero-copy inter-stage access to frame pixels
-- Per-consumer `eventfd` notification (avoids wake-up contention)
-- Lock-free style slot release via atomic reference counts
-- Optional memory residency control (`mlock`) and real-time producer scheduling (`SCHED_FIFO`)
-- Instrumented latency logging and automated comparison via Python
-- Privacy-preserving synthetic 1080p surgical-style workload
+The system runs **five processes**:
+
+| Process | Role |
+|---------|------|
+| **Producer** | Writes each frame once into a free ring slot |
+| **Denoiser** | Processes the shared frame in place |
+| **Edge detector** | Processes the same slot in place |
+| **Overlay** | Annotates the same slot in place |
+| **Display** | Measures end-to-end latency and writes CSV logs |
+
+A parent process creates shared memory and event descriptors, forks the children, waits for completion, then runs a **copy-based baseline** for comparison. A Python analyzer summarizes latency statistics.
+
+**Data path (zero-copy):**
+
+1. Producer writes pixels into shared memory (one write).  
+2. Three consumers are notified via per-consumer `eventfd`.  
+3. Each consumer works on the same slot and decrements an atomic `ref_count`.  
+4. When `ref_count` reaches 0, the slot is freed.  
+5. Display logs timestamps and latency.
 
 ---
+
+## 3. Features
+
+- Multi-process architecture using `fork` / `waitpid`
+- POSIX shared-memory ring buffer (`shm_open`, `mmap`)
+- Zero-copy inter-stage pixel access
+- Per-consumer `eventfd` signaling (no wake-up stealing)
+- Atomic reference counting for safe slot reuse
+- Instrumented latency logging (mean, P95, P99, max)
+- Copy-based `memcpy` baseline for fair comparison
+- Optional `mlock` and producer `SCHED_FIFO` via environment flags
+- Synthetic 1080p surgical-style frames (privacy-safe workload)
+
+---
+
+## 4. What was optimized?
+
+| Optimization target | Approach | Outcome |
+|---------------------|----------|---------|
+| **Frame copies between processes** | Shared-memory ring; single write per frame | ~2.0–2.4× lower average latency vs memcpy baseline |
+| **Coordination cost** | `eventfd` + atomic `ref_count` | Stable multi-consumer sharing, **0 drops** over 600 frames |
+| **Timing stability** | Absolute `clock_nanosleep` | Steady producer cadence |
+| **Tail latency (predictability)** | Optional `mlock` + `SCHED_FIFO` | Best P99 ≈ **3.13 ms** when both enabled with privileges |
+
+**In one line:** large frames are **shared**, not recopied; optional OS policies improve **latency predictability**.
+
+---
+
+## 5. Experimental results
+
+All runs: **600 frames**, **1920×1080 RGB**, **0 drops** on the zero-copy path.
+
+### 5.1 Configuration matrix
+
+| Run | Command | mlock | SCHED_FIFO |
+|-----|---------|-------|------------|
+| 1 | `PIPE_MLOCK=0 PIPE_RT=0 ./pipeline` | OFF | OFF |
+| 2 | `PIPE_MLOCK=1 PIPE_RT=0 ./pipeline` | requested (failed without sufficient lock limit) | OFF |
+| 3 | `sudo env PIPE_MLOCK=0 PIPE_RT=1 ./pipeline` | OFF | ON |
+| 4 | `sudo env PIPE_MLOCK=1 PIPE_RT=1 ./pipeline` | ON | ON |
+
+### 5.2 Zero-copy latency by configuration
+
+| Configuration | Avg (ms) | P95 (ms) | P99 (ms) | Max (ms) | Drops |
+|---------------|----------|----------|----------|----------|-------|
+| mlock OFF, RT OFF | 1.741 | 2.573 | 7.169 | 43.935 | 0 |
+| mlock requested*, RT OFF | 1.703 | 2.009 | 7.676 | 59.414 | 0 |
+| mlock OFF, RT ON | 1.536 | 1.834 | 6.044 | 30.763 | 0 |
+| **mlock ON, RT ON** | **1.476** | **2.053** | **3.127** | **26.652** | **0** |
+
+\*Unprivileged `mlock` failed with “Cannot allocate memory”; pipeline continued correctly without locked pages. With `sudo`, `mlock` succeeded in run 4.
+
+### 5.3 Zero-copy vs copy baseline (representative)
+
+| Metric | Zero-copy | Baseline (`memcpy`) | Gain |
+|--------|-----------|---------------------|------|
+| Average latency | ~1.5–1.7 ms | ~3.4–4.0 ms | **~2.0–2.4×** |
+| Frame drops | 0 | — | Stable completion |
+| P99 (best OS config) | **3.13 ms** | higher | Stronger predictability |
+| Clinical-style gate (P99 < 70 ms) | **PASS** | — | — |
+
+**Takeaway:** Shared memory delivers the primary speedup. Real-time scheduling and successful memory locking mainly improve **tail latency**.
+
+---
+
+## 6. Skills developed
+
+| Area | Skills demonstrated |
+|------|---------------------|
+| **Systems programming** | C on Linux, POSIX APIs, robust process lifecycle |
+| **Process management** | `fork`, inheritance of mappings/FDs, `waitpid` |
+| **Shared memory & IPC** | `shm_open` / `mmap`, `eventfd`, zero-copy design |
+| **Concurrency** | Atomic coordination, multi-consumer ring buffer |
+| **Performance engineering** | Baseline design, latency instrumentation, P99 analysis |
+| **OS policy controls** | `mlock`, `SCHED_FIFO`, privilege/limit behavior |
+| **Experimental method** | Controlled configs, CSV logs, reproducible comparison |
+| **Engineering communication** | README, technical report, measured claims |
+
+---
+
+## 7. How this connects to future interests
+
+### Medical computational systems
+Surgical and interventional systems are sensitive to **latency and jitter**. This project is direct practice in:
+
+- moving large sensor/video buffers without needless copies  
+- structuring producer–consumer pipelines across processes  
+- measuring average vs tail latency under OS policies  
+
+Those ideas transfer to real-time imaging paths, monitoring pipelines, and low-latency display chains (always subject to clinical validation beyond coursework).
+
+### Space systems
+Spacecraft and ground software often stream high-rate sensor or camera data through staged processing under tight CPU, memory, and timing budgets. The same principles apply:
+
+- shared buffers instead of copy-heavy pipelines  
+- clear process isolation and failure boundaries  
+- scheduling and memory residency as first-class design choices  
+- evidence via baselines and tail-latency metrics  
+
+**Portfolio framing:** not “I built a medical app,” but “I design and measure **OS-level data paths** for real-time, high-bandwidth workloads in domains I care about.”
+
+---
+
