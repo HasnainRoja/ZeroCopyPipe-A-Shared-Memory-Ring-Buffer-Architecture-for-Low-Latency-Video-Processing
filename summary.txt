@@ -1,0 +1,46 @@
+SURGICAL VIDEO PIPELINE — BENCHMARK SUMMARY
+============================================================
+Timestamp       : 2026-08-29T20:51:09
+Experiment      : mlock=ON | SCHED_FIFO=ON
+Frame geometry  : 1920x1080 RGB
+
+ZERO-COPY PIPELINE
+----------------------------------------
+  Frames        : 600
+  Avg latency   : 1.643 ms
+  Min latency   : 0.964 ms
+  Max latency   : 52.913 ms
+  P95 latency   : 1.691 ms
+  P99 latency   : 8.351 ms
+  Std deviation : 3.230 ms
+
+BASELINE (COPY) PIPELINE
+----------------------------------------
+  Frames        : 600
+  Avg latency   : 3.446 ms
+  Min latency   : 2.948 ms
+  Max latency   : 16.712 ms
+  P95 latency   : 4.537 ms
+  P99 latency   : 7.349 ms
+  Std deviation : 1.086 ms
+
+COMPARISON
+----------------------------------------
+  Improvement   : +52.3%
+  Speedup       : 2.10x
+
+CLINICAL-STYLE THRESHOLD (70 ms)
+----------------------------------------
+  P99 latency   : 8.351 ms
+  Result        : PASS
+
+NOTES
+----------------------------------------
+  - Zero-copy path uses POSIX shared-memory ring buffer.
+  - Baseline uses full-frame memcpy between stages.
+  - mlock/SCHED_FIFO are optional OS predictability controls.
+  - If mlock fails without privilege, pipeline still runs correctly.
+
+EXPERIMENT ROW
+----------------------------------------
+2026-08-29T20:51:09 | mlock=ON | RT=ON | frames=600 | avg_ms=1.643 | p95_ms=1.691 | p99_ms=8.351 | max_ms=52.913 | base_avg_ms=3.446 | speedup=2.10x | imp=+52.3%
