@@ -70,7 +70,7 @@ A parent process creates shared memory and event descriptors, forks the children
 | **Timing stability** | Absolute `clock_nanosleep` | Steady producer cadence |
 | **Tail latency (predictability)** | Optional `mlock` + `SCHED_FIFO` | Best P99 ≈ **3.13 ms** when both enabled with privileges |
 
-**In one line:** large frames are **shared**, not recopied; optional OS policies improve **latency predictability**.
+**In one line:** Initially, frame drops caused by wake-up distribution and producer-consumer imbalance were resolved through per-consumer `eventfd` synchronization, processing optimization, and improved process startup, achieving 600 frames with 0 drops. Large frames are **shared**, not recopied; optional OS policies improve **latency predictability**.
 
 ---
 
