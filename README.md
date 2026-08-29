@@ -42,8 +42,9 @@ A parent process creates shared memory and event descriptors, forks the children
 5. Display logs timestamps and latency.
 
 ---
-## 3. Drive Link for Project Demostration
-     https://drive.google.com/file/d/1GaW89cjR-qgZesWpN3hK30PWXVDGE7g7/view?usp=sharing
+## 3. Demo video Link for Project Demostration
+- [Play in browser](https://drive.google.com/file/d/1GaW89cjR-qgZesWpN3hK30PWXVDGE7g7/preview)
+- [Open in Drive](https://drive.google.com/file/d/1GaW89cjR-qgZesWpN3hK30PWXVDGE7g7/view?usp=sharing)
 ---
 
 ## 4. Features
