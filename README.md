@@ -50,7 +50,7 @@ A parent process creates shared memory and event descriptors, forks the children
 ## 4. Features
 
 - Multi-process architecture using `fork` / `waitpid`
-- POSIX shared-memory ring buffer (`shm_open`, `mmap`)
+- POSIX shared-memory ring buffer (`shm_open`, `mmap`, `ftruncate()`)
 - Zero-copy inter-stage pixel access
 - Per-consumer `eventfd` signaling (no wake-up stealing)
 - Atomic reference counting for safe slot reuse
