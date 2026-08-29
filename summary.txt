@@ -1,46 +1,764 @@
 SURGICAL VIDEO PIPELINE — BENCHMARK SUMMARY
+
+  === Zero-Copy Surgical Video Pipeline ===
+1920x1080 | slots=16 | 60fps | frames=600
+Experiment: mlock=OFF | SCHED_FIFO=OFF
+
+[SHM] Creating /surgical_pipeline_shm (94.92 MB)
+[SHM] mlock OFF
+[SHM] Ready (16 slots)
+[MAIN] Forking (consumers first)...
+[MAIN] Denoiser PID=1547
+[Denoiser] PID=1547
+[MAIN] EdgeDetector PID=1548
+[EdgeDetect] PID=1548
+[MAIN] Overlay PID=1549
+[Overlay] PID=1549
+[MAIN] Display PID=1550
+[DISPLAY] PID=1550
+[MAIN] Producer PID=1551
+
+[MAIN] Running...
+
+[PRODUCER] PID=1551  60fps  600 frames
+[PRODUCER] SCHED_FIFO OFF (normal scheduling)
+[PRODUCER] frame 0 → slot 0
+[Overlay] processed 30
+[EdgeDetect] processed 30
+[Denoiser] processed 30
+[DISPLAY] logged 30 | e2e=1.62 ms
+[PRODUCER] frame 30 → slot 14
+[Overlay] processed 60
+[EdgeDetect] processed 60
+[Denoiser] processed 60
+[DISPLAY] logged 60 | e2e=1.05 ms
+[PRODUCER] frame 60 → slot 12
+[Overlay] processed 90
+[EdgeDetect] processed 90
+[Denoiser] processed 90
+[DISPLAY] logged 90 | e2e=1.09 ms
+[PRODUCER] frame 90 → slot 10
+[Overlay] processed 120
+[EdgeDetect] processed 120
+[Denoiser] processed 120
+[DISPLAY] logged 120 | e2e=1.31 ms
+[PRODUCER] frame 120 → slot 8
+[Overlay] processed 150
+[EdgeDetect] processed 150
+[Denoiser] processed 150
+[DISPLAY] logged 150 | e2e=1.23 ms
+[PRODUCER] frame 150 → slot 6
+[Overlay] processed 180
+[EdgeDetect] processed 180
+[Denoiser] processed 180
+[DISPLAY] logged 180 | e2e=1.39 ms
+[PRODUCER] frame 180 → slot 4
+[Overlay] processed 210
+[EdgeDetect] processed 210
+[Denoiser] processed 210
+[DISPLAY] logged 210 | e2e=1.27 ms
+[PRODUCER] frame 210 → slot 2
+[Overlay] processed 240
+[EdgeDetect] processed 240
+[Denoiser] processed 240
+[DISPLAY] logged 240 | e2e=1.17 ms
+[PRODUCER] frame 240 → slot 0
+[Overlay] processed 270
+[EdgeDetect] processed 270
+[Denoiser] processed 270
+[DISPLAY] logged 270 | e2e=1.19 ms
+[PRODUCER] frame 270 → slot 14
+[Overlay] processed 300
+[EdgeDetect] processed 300
+[Denoiser] processed 300
+[DISPLAY] logged 300 | e2e=1.21 ms
+[PRODUCER] frame 300 → slot 12
+[Overlay] processed 330
+[EdgeDetect] processed 330
+[Denoiser] processed 330
+[DISPLAY] logged 330 | e2e=1.52 ms
+[PRODUCER] frame 330 → slot 10
+[Overlay] processed 360
+[EdgeDetect] processed 360
+[Denoiser] processed 360
+[DISPLAY] logged 360 | e2e=1.35 ms
+[PRODUCER] frame 360 → slot 8
+[Overlay] processed 390
+[EdgeDetect] processed 390
+[Denoiser] processed 390
+[DISPLAY] logged 390 | e2e=1.11 ms
+[PRODUCER] frame 390 → slot 6
+[Overlay] processed 420
+[EdgeDetect] processed 420
+[Denoiser] processed 420
+[DISPLAY] logged 420 | e2e=1.27 ms
+[PRODUCER] frame 420 → slot 4
+[Overlay] processed 450
+[EdgeDetect] processed 450
+[Denoiser] processed 450
+[DISPLAY] logged 450 | e2e=1.10 ms
+[PRODUCER] frame 450 → slot 2
+[Overlay] processed 480
+[EdgeDetect] processed 480
+[Denoiser] processed 480
+[DISPLAY] logged 480 | e2e=1.31 ms
+[PRODUCER] frame 480 → slot 0
+[Overlay] processed 510
+[EdgeDetect] processed 510
+[Denoiser] processed 510
+[DISPLAY] logged 510 | e2e=1.24 ms
+[PRODUCER] frame 510 → slot 14
+[Overlay] processed 540
+[EdgeDetect] processed 540
+[Denoiser] processed 540
+[DISPLAY] logged 540 | e2e=1.40 ms
+[PRODUCER] frame 540 → slot 12
+[Overlay] processed 570
+[EdgeDetect] processed 570
+[Denoiser] processed 570
+[DISPLAY] logged 570 | e2e=1.22 ms
+[PRODUCER] frame 570 → slot 10
+[Overlay] processed 600
+[Overlay] Done. total=600
+[EdgeDetect] processed 600
+[EdgeDetect] Done. total=600
+[Denoiser] processed 600
+[Denoiser] Done. total=600
+[DISPLAY] logged 600 | e2e=1.20 ms
+[MAIN] Denoiser OK
+[MAIN] EdgeDetector OK
+[MAIN] Overlay OK
+
+[DISPLAY] DONE frames=600 avg=1.535 ms min=0.958 max=21.226
+[MAIN] Display OK
+[PRODUCER] Done. produced=600 dropped=0
+[MAIN] Producer OK
+
+[MAIN] Zero-copy SUCCESS
+
+[BASELINE] copy-based pipeline (600 frames)
+[BASELINE] frame 0 | e2e=42.82 ms
+[BASELINE] frame 30 | e2e=3.50 ms
+[BASELINE] frame 60 | e2e=3.08 ms
+[BASELINE] frame 90 | e2e=3.09 ms
+[BASELINE] frame 120 | e2e=3.59 ms
+[BASELINE] frame 150 | e2e=3.24 ms
+[BASELINE] frame 180 | e2e=3.21 ms
+[BASELINE] frame 210 | e2e=3.10 ms
+[BASELINE] frame 240 | e2e=3.06 ms
+[BASELINE] frame 270 | e2e=3.39 ms
+[BASELINE] frame 300 | e2e=3.70 ms
+[BASELINE] frame 330 | e2e=3.43 ms
+[BASELINE] frame 360 | e2e=3.49 ms
+[BASELINE] frame 390 | e2e=3.09 ms
+[BASELINE] frame 420 | e2e=3.05 ms
+[BASELINE] frame 450 | e2e=3.08 ms
+[BASELINE] frame 480 | e2e=3.83 ms
+[BASELINE] frame 510 | e2e=6.65 ms
+[BASELINE] frame 540 | e2e=3.86 ms
+[BASELINE] frame 570 | e2e=4.64 ms
+[BASELINE] avg=3.844 ms min=2.944 max=42.820
+
 ============================================================
-Timestamp       : 2026-08-29T20:51:09
-Experiment      : mlock=OFF | SCHED_FIFO=OFF
-Frame geometry  : 1920x1080 RGB
+  SURGICAL VIDEO PIPELINE — BENCHMARK REPORT
+============================================================
 
-ZERO-COPY PIPELINE
-----------------------------------------
-  Frames        : 600
-  Avg latency   : 1.535 ms
-  Min latency   : 0.964 ms
-  Max latency   : 52.913 ms
-  P95 latency   : 1.691 ms
-  P99 latency   : 6.288 ms
-  Std deviation : 3.230 ms
+  Experiment: mlock=OFF | SCHED_FIFO=OFF
 
-BASELINE (COPY) PIPELINE
-----------------------------------------
-  Frames        : 600
-  Avg latency   : 3.844 ms
-  Min latency   : 2.948 ms
-  Max latency   : 16.712 ms
-  P95 latency   : 4.537 ms
-  P99 latency   : 7.349 ms
-  Std deviation : 1.086 ms
+ZERO-COPY (600 frames)
+──────────────────────────────────────────────────
+  AVG          1.535 ms
+  MIN          0.958 ms
+  MAX         21.226 ms
+  P95          1.954 ms
+  P99          6.284 ms
+  STD          1.230 ms
+──────────────────────────────────────────────────
 
 COMPARISON
-----------------------------------------
-  Improvement   : +60.1%
-  Speedup       : 2.50x
+──────────────────────────────────────────────────
+  Metric          Zero-Copy     Baseline
+  Avg              1.535 ms     3.844 ms
+  P99              6.284 ms    10.634 ms
+  Max             21.226 ms    42.820 ms
+──────────────────────────────────────────────────
 
-CLINICAL-STYLE THRESHOLD (70 ms)
-----------------------------------------
-  P99 latency   : 6.288 ms
-  Result        : PASS
+  Improvement: +60.1%
+  Speedup    : 2.50x
 
-NOTES
-----------------------------------------
-  - Zero-copy path uses POSIX shared-memory ring buffer.
-  - Baseline uses full-frame memcpy between stages.
-  - mlock/SCHED_FIFO are optional OS predictability controls.
-  - If mlock fails without privilege, pipeline still runs correctly.
+CLINICAL CHECK (70 ms)
+  P99: 6.284 ms → PASS
 
-EXPERIMENT ROW
-----------------------------------------
-2026-08-29T20:51:09 | mlock=ON | RT=ON | frames=600 | avg_ms=1.535 | p95_ms=1.691 | p99_ms=6.288 | max_ms=52.913 | base_avg_ms=3.446 | speedup=2.50x | imp=+60.1%
+
+=== Zero-Copy Surgical Video Pipeline ===
+1920x1080 | slots=16 | 60fps | frames=600
+Experiment: mlock=ON | SCHED_FIFO=OFF
+
+[SHM] Creating /surgical_pipeline_shm (94.92 MB)
+[SHM] mlock ON (pages pinned in RAM)
+[SHM] Ready (16 slots)
+[MAIN] Forking (consumers first)...
+[MAIN] Denoiser PID=1568
+[Denoiser] PID=1568
+[MAIN] EdgeDetector PID=1569
+[EdgeDetect] PID=1569
+[MAIN] Overlay PID=1570
+[Overlay] PID=1570
+[MAIN] Display PID=1571
+[DISPLAY] PID=1571
+[MAIN] Producer PID=1572
+
+[MAIN] Running...
+
+[PRODUCER] PID=1572  60fps  600 frames
+[PRODUCER] SCHED_FIFO OFF (normal scheduling)
+[PRODUCER] frame 0 → slot 0
+[Overlay] processed 30
+[EdgeDetect] processed 30
+[Denoiser] processed 30
+[DISPLAY] logged 30 | e2e=1.23 ms
+[PRODUCER] frame 30 → slot 14
+[Overlay] processed 60
+[EdgeDetect] processed 60
+[Denoiser] processed 60
+[DISPLAY] logged 60 | e2e=1.41 ms
+[PRODUCER] frame 60 → slot 12
+[Overlay] processed 90
+[EdgeDetect] processed 90
+[Denoiser] processed 90
+[DISPLAY] logged 90 | e2e=1.32 ms
+[PRODUCER] frame 90 → slot 10
+[Overlay] processed 120
+[EdgeDetect] processed 120
+[Denoiser] processed 120
+[DISPLAY] logged 120 | e2e=1.52 ms
+[PRODUCER] frame 120 → slot 8
+[Overlay] processed 150
+[EdgeDetect] processed 150
+[Denoiser] processed 150
+[DISPLAY] logged 150 | e2e=1.09 ms
+[PRODUCER] frame 150 → slot 6
+[Overlay] processed 180
+[EdgeDetect] processed 180
+[Denoiser] processed 180
+[DISPLAY] logged 180 | e2e=1.54 ms
+[PRODUCER] frame 180 → slot 4
+[Overlay] processed 210
+[EdgeDetect] processed 210
+[Denoiser] processed 210
+[DISPLAY] logged 210 | e2e=1.33 ms
+[PRODUCER] frame 210 → slot 2
+[Overlay] processed 240
+[EdgeDetect] processed 240
+[Denoiser] processed 240
+[DISPLAY] logged 240 | e2e=1.35 ms
+[PRODUCER] frame 240 → slot 0
+[Overlay] processed 270
+[EdgeDetect] processed 270
+[Denoiser] processed 270
+[DISPLAY] logged 270 | e2e=1.50 ms
+[PRODUCER] frame 270 → slot 14
+[Overlay] processed 300
+[EdgeDetect] processed 300
+[Denoiser] processed 300
+[DISPLAY] logged 300 | e2e=1.49 ms
+[PRODUCER] frame 300 → slot 12
+[Overlay] processed 330
+[EdgeDetect] processed 330
+[Denoiser] processed 330
+[DISPLAY] logged 330 | e2e=1.17 ms
+[PRODUCER] frame 330 → slot 10
+[Overlay] processed 360
+[EdgeDetect] processed 360
+[Denoiser] processed 360
+[DISPLAY] logged 360 | e2e=1.18 ms
+[PRODUCER] frame 360 → slot 8
+[Overlay] processed 390
+[EdgeDetect] processed 390
+[Denoiser] processed 390
+[DISPLAY] logged 390 | e2e=1.30 ms
+[PRODUCER] frame 390 → slot 6
+[Overlay] processed 420
+[EdgeDetect] processed 420
+[Denoiser] processed 420
+[DISPLAY] logged 420 | e2e=1.25 ms
+[PRODUCER] frame 420 → slot 4
+[Overlay] processed 450
+[EdgeDetect] processed 450
+[Denoiser] processed 450
+[DISPLAY] logged 450 | e2e=1.14 ms
+[PRODUCER] frame 450 → slot 2
+[Overlay] processed 480
+[EdgeDetect] processed 480
+[Denoiser] processed 480
+[DISPLAY] logged 480 | e2e=1.19 ms
+[PRODUCER] frame 480 → slot 0
+[Overlay] processed 510
+[EdgeDetect] processed 510
+[Denoiser] processed 510
+[DISPLAY] logged 510 | e2e=1.23 ms
+[PRODUCER] frame 510 → slot 14
+[Overlay] processed 540
+[EdgeDetect] processed 540
+[Denoiser] processed 540
+[DISPLAY] logged 540 | e2e=1.05 ms
+[PRODUCER] frame 540 → slot 12
+[Overlay] processed 570
+[EdgeDetect] processed 570
+[Denoiser] processed 570
+[DISPLAY] logged 570 | e2e=1.30 ms
+[PRODUCER] frame 570 → slot 10
+[Overlay] processed 600
+[Overlay] Done. total=600
+[EdgeDetect] processed 600
+[EdgeDetect] Done. total=600
+[Denoiser] processed 600
+[Denoiser] Done. total=600
+[DISPLAY] logged 600 | e2e=1.41 ms
+
+[DISPLAY] DONE frames=600 avg=1.538 ms min=0.964 max=38.849
+[MAIN] Denoiser OK
+[MAIN] EdgeDetector OK
+[MAIN] Overlay OK
+[MAIN] Display OK
+[PRODUCER] Done. produced=600 dropped=0
+[MAIN] Producer OK
+
+[MAIN] Zero-copy SUCCESS
+
+[BASELINE] copy-based pipeline (600 frames)
+[BASELINE] frame 0 | e2e=18.10 ms
+[BASELINE] frame 30 | e2e=3.17 ms
+[BASELINE] frame 60 | e2e=3.56 ms
+[BASELINE] frame 90 | e2e=3.10 ms
+[BASELINE] frame 120 | e2e=3.59 ms
+[BASELINE] frame 150 | e2e=3.45 ms
+[BASELINE] frame 180 | e2e=3.09 ms
+[BASELINE] frame 210 | e2e=3.27 ms
+[BASELINE] frame 240 | e2e=3.08 ms
+[BASELINE] frame 270 | e2e=3.06 ms
+[BASELINE] frame 300 | e2e=4.35 ms
+[BASELINE] frame 330 | e2e=3.35 ms
+[BASELINE] frame 360 | e2e=3.46 ms
+[BASELINE] frame 390 | e2e=3.92 ms
+[BASELINE] frame 420 | e2e=3.31 ms
+[BASELINE] frame 450 | e2e=2.99 ms
+[BASELINE] frame 480 | e2e=3.03 ms
+[BASELINE] frame 510 | e2e=3.11 ms
+[BASELINE] frame 540 | e2e=3.08 ms
+[BASELINE] frame 570 | e2e=3.04 ms
+[BASELINE] avg=3.479 ms min=2.944 max=18.101
+
+============================================================
+  SURGICAL VIDEO PIPELINE — BENCHMARK REPORT
+============================================================
+
+  Experiment: mlock=ON | SCHED_FIFO=OFF
+
+ZERO-COPY (600 frames)
+──────────────────────────────────────────────────
+  AVG          1.538 ms
+  MIN          0.964 ms
+  MAX         38.849 ms
+  P95          1.863 ms
+  P99          5.506 ms
+  STD          2.052 ms
+──────────────────────────────────────────────────
+
+COMPARISON
+──────────────────────────────────────────────────
+  Metric          Zero-Copy     Baseline
+  Avg              1.538 ms     3.479 ms
+  P99              5.506 ms     5.706 ms
+  Max             38.849 ms    18.101 ms
+──────────────────────────────────────────────────
+
+  Improvement: +55.8%
+  Speedup    : 2.26x
+
+CLINICAL CHECK (70 ms)
+  P99: 5.506 ms → PASS
+
+
+
+=== Zero-Copy Surgical Video Pipeline ===
+1920x1080 | slots=16 | 60fps | frames=600
+Experiment: mlock=OFF | SCHED_FIFO=ON
+
+[SHM] Creating /surgical_pipeline_shm (94.92 MB)
+[SHM] mlock OFF
+[SHM] Ready (16 slots)
+[MAIN] Forking (consumers first)...
+[MAIN] Denoiser PID=1590
+[Denoiser] PID=1590
+[MAIN] EdgeDetector PID=1591
+[EdgeDetect] PID=1591
+[MAIN] Overlay PID=1592
+[Overlay] PID=1592
+[MAIN] Display PID=1593
+[DISPLAY] PID=1593
+[MAIN] Producer PID=1594
+
+[MAIN] Running...
+
+[PRODUCER] PID=1594  60fps  600 frames
+[PRODUCER] SCHED_FIFO ON (priority 50)
+[PRODUCER] frame 0 → slot 0
+[Overlay] processed 30
+[EdgeDetect] processed 30
+[Denoiser] processed 30
+[DISPLAY] logged 30 | e2e=1.27 ms
+[PRODUCER] frame 30 → slot 14
+[Overlay] processed 60
+[EdgeDetect] processed 60
+[Denoiser] processed 60
+[DISPLAY] logged 60 | e2e=1.32 ms
+[PRODUCER] frame 60 → slot 12
+[Overlay] processed 90
+[EdgeDetect] processed 90
+[Denoiser] processed 90
+[DISPLAY] logged 90 | e2e=1.14 ms
+[PRODUCER] frame 90 → slot 10
+[Overlay] processed 120
+[EdgeDetect] processed 120
+[Denoiser] processed 120
+[DISPLAY] logged 120 | e2e=1.32 ms
+[PRODUCER] frame 120 → slot 8
+[Overlay] processed 150
+[EdgeDetect] processed 150
+[Denoiser] processed 150
+[DISPLAY] logged 150 | e2e=1.19 ms
+[PRODUCER] frame 150 → slot 6
+[EdgeDetect] processed 180
+[Overlay] processed 180
+[Denoiser] processed 180
+[DISPLAY] logged 180 | e2e=1.37 ms
+[PRODUCER] frame 180 → slot 4
+[Overlay] processed 210
+[EdgeDetect] processed 210
+[Denoiser] processed 210
+[DISPLAY] logged 210 | e2e=1.37 ms
+[PRODUCER] frame 210 → slot 2
+[Overlay] processed 240
+[EdgeDetect] processed 240
+[Denoiser] processed 240
+[DISPLAY] logged 240 | e2e=1.39 ms
+[PRODUCER] frame 240 → slot 0
+[Overlay] processed 270
+[EdgeDetect] processed 270
+[Denoiser] processed 270
+[DISPLAY] logged 270 | e2e=1.45 ms
+[PRODUCER] frame 270 → slot 14
+[Overlay] processed 300
+[EdgeDetect] processed 300
+[Denoiser] processed 300
+[DISPLAY] logged 300 | e2e=1.50 ms
+[PRODUCER] frame 300 → slot 12
+[EdgeDetect] processed 330
+[Overlay] processed 330
+[Denoiser] processed 330
+[DISPLAY] logged 330 | e2e=1.29 ms
+[PRODUCER] frame 330 → slot 10
+[Overlay] processed 360
+[EdgeDetect] processed 360
+[Denoiser] processed 360
+[DISPLAY] logged 360 | e2e=1.13 ms
+[PRODUCER] frame 360 → slot 8
+[Overlay] processed 390
+[EdgeDetect] processed 390
+[Denoiser] processed 390
+[DISPLAY] logged 390 | e2e=1.31 ms
+[PRODUCER] frame 390 → slot 6
+[Overlay] processed 420
+[EdgeDetect] processed 420
+[Denoiser] processed 420
+[DISPLAY] logged 420 | e2e=1.35 ms
+[PRODUCER] frame 420 → slot 4
+[Overlay] processed 450
+[EdgeDetect] processed 450
+[Denoiser] processed 450
+[DISPLAY] logged 450 | e2e=1.21 ms
+[PRODUCER] frame 450 → slot 2
+[Overlay] processed 480
+[EdgeDetect] processed 480
+[Denoiser] processed 480
+[DISPLAY] logged 480 | e2e=1.31 ms
+[PRODUCER] frame 480 → slot 0
+[EdgeDetect] processed 510
+[Overlay] processed 510
+[Denoiser] processed 510
+[DISPLAY] logged 510 | e2e=1.42 ms
+[PRODUCER] frame 510 → slot 14
+[Overlay] processed 540
+[EdgeDetect] processed 540
+[Denoiser] processed 540
+[DISPLAY] logged 540 | e2e=1.22 ms
+[PRODUCER] frame 540 → slot 12
+[Overlay] processed 570
+[EdgeDetect] processed 570
+[Denoiser] processed 570
+[DISPLAY] logged 570 | e2e=1.32 ms
+[PRODUCER] frame 570 → slot 10
+[Overlay] processed 600
+[Overlay] Done. total=600
+[EdgeDetect] processed 600
+[EdgeDetect] Done. total=600
+[Denoiser] processed 600
+[Denoiser] Done. total=600
+[DISPLAY] logged 600 | e2e=1.58 ms
+[MAIN] Denoiser OK
+[MAIN] EdgeDetector OK
+[MAIN] Overlay OK
+
+[DISPLAY] DONE frames=600 avg=1.645 ms min=0.984 max=43.522
+[MAIN] Display OK
+[PRODUCER] Done. produced=600 dropped=0
+[MAIN] Producer OK
+
+[MAIN] Zero-copy SUCCESS
+
+[BASELINE] copy-based pipeline (600 frames)
+[BASELINE] frame 0 | e2e=17.66 ms
+[BASELINE] frame 30 | e2e=3.61 ms
+[BASELINE] frame 60 | e2e=3.06 ms
+[BASELINE] frame 90 | e2e=3.06 ms
+[BASELINE] frame 120 | e2e=7.09 ms
+[BASELINE] frame 150 | e2e=3.36 ms
+[BASELINE] frame 180 | e2e=5.10 ms
+[BASELINE] frame 210 | e2e=3.15 ms
+[BASELINE] frame 240 | e2e=3.06 ms
+[BASELINE] frame 270 | e2e=3.32 ms
+[BASELINE] frame 300 | e2e=3.04 ms
+[BASELINE] frame 330 | e2e=3.06 ms
+[BASELINE] frame 360 | e2e=3.05 ms
+[BASELINE] frame 390 | e2e=3.03 ms
+[BASELINE] frame 420 | e2e=3.14 ms
+[BASELINE] frame 450 | e2e=3.07 ms
+[BASELINE] frame 480 | e2e=3.09 ms
+[BASELINE] frame 510 | e2e=3.04 ms
+[BASELINE] frame 540 | e2e=3.75 ms
+[BASELINE] frame 570 | e2e=2.97 ms
+[BASELINE] avg=3.432 ms min=2.944 max=17.665
+
+============================================================
+  SURGICAL VIDEO PIPELINE — BENCHMARK REPORT
+============================================================
+
+  Experiment: mlock=OFF | SCHED_FIFO=ON
+
+ZERO-COPY (600 frames)
+──────────────────────────────────────────────────
+  AVG          1.645 ms
+  MIN          0.984 ms
+  MAX         43.522 ms
+  P95          1.791 ms
+  P99          6.160 ms
+  STD          2.719 ms
+──────────────────────────────────────────────────
+
+COMPARISON
+──────────────────────────────────────────────────
+  Metric          Zero-Copy     Baseline
+  Avg              1.645 ms     3.432 ms
+  P99              6.160 ms     6.752 ms
+  Max             43.522 ms    17.665 ms
+──────────────────────────────────────────────────
+
+  Improvement: +52.1%
+  Speedup    : 2.09x
+
+CLINICAL CHECK (70 ms)
+  P99: 6.160 ms → PASS
+ 
+
+=== Zero-Copy Surgical Video Pipeline ===
+1920x1080 | slots=16 | 60fps | frames=600
+Experiment: mlock=ON | SCHED_FIFO=ON
+
+[SHM] Creating /surgical_pipeline_shm (94.92 MB)
+[SHM] mlock ON (pages pinned in RAM)
+[SHM] Ready (16 slots)
+[MAIN] Forking (consumers first)...
+[MAIN] Denoiser PID=1610
+[Denoiser] PID=1610
+[MAIN] EdgeDetector PID=1611
+[EdgeDetect] PID=1611
+[MAIN] Overlay PID=1612
+[Overlay] PID=1612
+[MAIN] Display PID=1613
+[MAIN] Producer PID=1614
+
+[MAIN] Running...
+
+[PRODUCER] PID=1614  60fps  600 frames
+[DISPLAY] PID=1613
+[PRODUCER] SCHED_FIFO ON (priority 50)
+[PRODUCER] frame 0 → slot 0
+[Overlay] processed 30
+[EdgeDetect] processed 30
+[Denoiser] processed 30
+[DISPLAY] logged 30 | e2e=1.35 ms
+[PRODUCER] frame 30 → slot 14
+[Overlay] processed 60
+[EdgeDetect] processed 60
+[Denoiser] processed 60
+[DISPLAY] logged 60 | e2e=1.05 ms
+[PRODUCER] frame 60 → slot 12
+[Overlay] processed 90
+[EdgeDetect] processed 90
+[Denoiser] processed 90
+[DISPLAY] logged 90 | e2e=1.30 ms
+[PRODUCER] frame 90 → slot 10
+[Overlay] processed 120
+[EdgeDetect] processed 120
+[Denoiser] processed 120
+[DISPLAY] logged 120 | e2e=1.11 ms
+[PRODUCER] frame 120 → slot 8
+[Overlay] processed 150
+[EdgeDetect] processed 150
+[Denoiser] processed 150
+[DISPLAY] logged 150 | e2e=1.37 ms
+[PRODUCER] frame 150 → slot 6
+[Overlay] processed 180
+[EdgeDetect] processed 180
+[Denoiser] processed 180
+[DISPLAY] logged 180 | e2e=1.41 ms
+[PRODUCER] frame 180 → slot 4
+[Overlay] processed 210
+[EdgeDetect] processed 210
+[Denoiser] processed 210
+[DISPLAY] logged 210 | e2e=1.18 ms
+[PRODUCER] frame 210 → slot 2
+[Overlay] processed 240
+[EdgeDetect] processed 240
+[Denoiser] processed 240
+[DISPLAY] logged 240 | e2e=1.30 ms
+[PRODUCER] frame 240 → slot 0
+[Overlay] processed 270
+[EdgeDetect] processed 270
+[Denoiser] processed 270
+[DISPLAY] logged 270 | e2e=1.32 ms
+[PRODUCER] frame 270 → slot 14
+[Overlay] processed 300
+[EdgeDetect] processed 300
+[Denoiser] processed 300
+[DISPLAY] logged 300 | e2e=1.40 ms
+[PRODUCER] frame 300 → slot 12
+[Overlay] processed 330
+[EdgeDetect] processed 330
+[Denoiser] processed 330
+[DISPLAY] logged 330 | e2e=1.16 ms
+[PRODUCER] frame 330 → slot 10
+[Overlay] processed 360
+[EdgeDetect] processed 360
+[Denoiser] processed 360
+[DISPLAY] logged 360 | e2e=1.20 ms
+[PRODUCER] frame 360 → slot 8
+[Overlay] processed 390
+[EdgeDetect] processed 390
+[Denoiser] processed 390
+[DISPLAY] logged 390 | e2e=1.40 ms
+[PRODUCER] frame 390 → slot 6
+[Overlay] processed 420
+[EdgeDetect] processed 420
+[Denoiser] processed 420
+[DISPLAY] logged 420 | e2e=1.23 ms
+[PRODUCER] frame 420 → slot 4
+[Overlay] processed 450
+[EdgeDetect] processed 450
+[Denoiser] processed 450
+[DISPLAY] logged 450 | e2e=1.34 ms
+[PRODUCER] frame 450 → slot 2
+[Overlay] processed 480
+[EdgeDetect] processed 480
+[Denoiser] processed 480
+[DISPLAY] logged 480 | e2e=1.06 ms
+[PRODUCER] frame 480 → slot 0
+[Overlay] processed 510
+[EdgeDetect] processed 510
+[Denoiser] processed 510
+[DISPLAY] logged 510 | e2e=1.22 ms
+[PRODUCER] frame 510 → slot 14
+[Overlay] processed 540
+[EdgeDetect] processed 540
+[Denoiser] processed 540
+[DISPLAY] logged 540 | e2e=1.29 ms
+[PRODUCER] frame 540 → slot 12
+[Overlay] processed 570
+[EdgeDetect] processed 570
+[Denoiser] processed 570
+[DISPLAY] logged 570 | e2e=1.14 ms
+[PRODUCER] frame 570 → slot 10
+[Overlay] processed 600
+[Overlay] Done. total=600
+[EdgeDetect] processed 600
+[EdgeDetect] Done. total=600
+[Denoiser] processed 600
+[Denoiser] Done. total=600
+[DISPLAY] logged 600 | e2e=1.09 ms
+[MAIN] Denoiser OK
+[MAIN] EdgeDetector OK
+[MAIN] Overlay OK
+
+[DISPLAY] DONE frames=600 avg=1.603 ms min=0.973 max=48.384
+[MAIN] Display OK
+[PRODUCER] Done. produced=600 dropped=0
+[MAIN] Producer OK
+
+[MAIN] Zero-copy SUCCESS
+
+[BASELINE] copy-based pipeline (600 frames)
+[BASELINE] frame 0 | e2e=25.28 ms
+[BASELINE] frame 30 | e2e=3.97 ms
+[BASELINE] frame 60 | e2e=3.57 ms
+[BASELINE] frame 90 | e2e=3.42 ms
+[BASELINE] frame 120 | e2e=3.54 ms
+[BASELINE] frame 150 | e2e=3.45 ms
+[BASELINE] frame 180 | e2e=3.27 ms
+[BASELINE] frame 210 | e2e=3.72 ms
+[BASELINE] frame 240 | e2e=3.44 ms
+[BASELINE] frame 270 | e2e=3.50 ms
+[BASELINE] frame 300 | e2e=3.11 ms
+[BASELINE] frame 330 | e2e=3.44 ms
+[BASELINE] frame 360 | e2e=4.64 ms
+[BASELINE] frame 390 | e2e=3.41 ms
+[BASELINE] frame 420 | e2e=3.35 ms
+[BASELINE] frame 450 | e2e=3.00 ms
+[BASELINE] frame 480 | e2e=3.39 ms
+[BASELINE] frame 510 | e2e=3.04 ms
+[BASELINE] frame 540 | e2e=3.19 ms
+[BASELINE] frame 570 | e2e=2.97 ms
+[BASELINE] avg=3.550 ms min=2.923 max=25.275
+
+============================================================
+  SURGICAL VIDEO PIPELINE — BENCHMARK REPORT
+============================================================
+
+  Experiment: mlock=ON | SCHED_FIFO=ON
+
+ZERO-COPY (600 frames)
+──────────────────────────────────────────────────
+  AVG          1.603 ms
+  MIN          0.973 ms
+  MAX         48.384 ms
+  P95          1.692 ms
+  P99          3.776 ms
+  STD          3.027 ms
+──────────────────────────────────────────────────
+
+COMPARISON
+──────────────────────────────────────────────────
+  Metric          Zero-Copy     Baseline
+  Avg              1.603 ms     3.550 ms
+  P99              3.776 ms     5.642 ms
+  Max             48.384 ms    25.275 ms
+──────────────────────────────────────────────────
+
+  Improvement: +54.8%
+  Speedup    : 2.21x
+
+CLINICAL CHECK (70 ms)
+  P99: 3.776 ms → PASS
+
+[SHM] Destroyed
+[MAIN] Done
