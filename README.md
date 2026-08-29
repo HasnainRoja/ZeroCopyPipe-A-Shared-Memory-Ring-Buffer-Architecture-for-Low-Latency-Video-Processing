@@ -117,8 +117,7 @@ All runs: **600 frames**, **1920×1080 RGB**, **0 drops** on the zero-copy path.
 | **Concurrency** | Atomic coordination, multi-consumer ring buffer |
 | **Performance engineering** | Baseline design, latency instrumentation, P99 analysis |
 | **OS policy controls** | `mlock`, `SCHED_FIFO`, privilege/limit behavior |
-| **Experimental method** | Controlled configs, CSV logs, reproducible comparison |
-| **Engineering communication** | README, technical report, measured claims |
+
 
 ---
 
@@ -141,7 +140,7 @@ Spacecraft and ground software often stream high-rate sensor or camera data thro
 - scheduling and memory residency as first-class design choices  
 - evidence via baselines and tail-latency metrics  
 
-**Portfolio framing:** not “I built a medical app,” but “I design and measure **OS-level data paths** for real-time, high-bandwidth workloads in domains I care about.”
+ “I design and measure **OS-level data paths** for real-time, high-bandwidth workloads in domains I care about.”
 
 ---
 
