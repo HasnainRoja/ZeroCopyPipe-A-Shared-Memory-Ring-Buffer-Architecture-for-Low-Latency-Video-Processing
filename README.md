@@ -97,6 +97,7 @@ All runs: **600 frames**, **1920×1080 RGB**, **0 drops** on the zero-copy path.
 | mlock ON, RT ON | 1.476 | 2.053 | 3.127 | 26.652 | 0 |
 
 But these results may vary for every excecutions. This result table is one of the executions for all 4 OS configurations.
+Tail latency varies on laptop/WSL.
 
 ### 6.3 Zero-copy vs copy baseline (representative)
 
