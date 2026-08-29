@@ -1,23 +1,23 @@
 SURGICAL VIDEO PIPELINE — BENCHMARK SUMMARY
 ============================================================
 Timestamp       : 2026-08-29T20:51:09
-Experiment      : mlock=ON | SCHED_FIFO=ON
+Experiment      : mlock=OFF | SCHED_FIFO=OFF
 Frame geometry  : 1920x1080 RGB
 
 ZERO-COPY PIPELINE
 ----------------------------------------
   Frames        : 600
-  Avg latency   : 1.643 ms
+  Avg latency   : 1.535 ms
   Min latency   : 0.964 ms
   Max latency   : 52.913 ms
   P95 latency   : 1.691 ms
-  P99 latency   : 8.351 ms
+  P99 latency   : 6.288 ms
   Std deviation : 3.230 ms
 
 BASELINE (COPY) PIPELINE
 ----------------------------------------
   Frames        : 600
-  Avg latency   : 3.446 ms
+  Avg latency   : 3.844 ms
   Min latency   : 2.948 ms
   Max latency   : 16.712 ms
   P95 latency   : 4.537 ms
@@ -26,12 +26,12 @@ BASELINE (COPY) PIPELINE
 
 COMPARISON
 ----------------------------------------
-  Improvement   : +52.3%
-  Speedup       : 2.10x
+  Improvement   : +60.1%
+  Speedup       : 2.50x
 
 CLINICAL-STYLE THRESHOLD (70 ms)
 ----------------------------------------
-  P99 latency   : 8.351 ms
+  P99 latency   : 6.288 ms
   Result        : PASS
 
 NOTES
@@ -43,4 +43,4 @@ NOTES
 
 EXPERIMENT ROW
 ----------------------------------------
-2026-08-29T20:51:09 | mlock=ON | RT=ON | frames=600 | avg_ms=1.643 | p95_ms=1.691 | p99_ms=8.351 | max_ms=52.913 | base_avg_ms=3.446 | speedup=2.10x | imp=+52.3%
+2026-08-29T20:51:09 | mlock=ON | RT=ON | frames=600 | avg_ms=1.535 | p95_ms=1.691 | p99_ms=6.288 | max_ms=52.913 | base_avg_ms=3.446 | speedup=2.50x | imp=+60.1%
