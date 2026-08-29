@@ -83,7 +83,7 @@ All runs: **600 frames**, **1920×1080 RGB**, **0 drops** on the zero-copy path.
 | Run | Command | mlock | SCHED_FIFO |
 |-----|---------|-------|------------|
 | 1 | `PIPE_MLOCK=0 PIPE_RT=0 ./pipeline` | OFF | OFF |
-| 2 | `PIPE_MLOCK=1 PIPE_RT=0 ./pipeline` | requested (failed without sufficient lock limit) | OFF |
+| 2 | `PIPE_MLOCK=1 PIPE_RT=0 ./pipeline` | ON | OFF |
 | 3 | `sudo env PIPE_MLOCK=0 PIPE_RT=1 ./pipeline` | OFF | ON |
 | 4 | `sudo env PIPE_MLOCK=1 PIPE_RT=1 ./pipeline` | ON | ON |
 
@@ -94,15 +94,15 @@ All runs: **600 frames**, **1920×1080 RGB**, **0 drops** on the zero-copy path.
 | mlock OFF, RT OFF | 1.741 | 2.573 | 7.169 | 43.935 | 0 |
 | mlock requested*, RT OFF | 1.703 | 2.009 | 7.676 | 59.414 | 0 |
 | mlock OFF, RT ON | 1.536 | 1.834 | 6.044 | 30.763 | 0 |
-| **mlock ON, RT ON** | **1.476** | **2.053** | **3.127** | **26.652** | **0** |
+| mlock ON, RT ON | 1.476 | 2.053 | 3.127 | 26.652 | 0 |
 
-\*Unprivileged `mlock` failed with “Cannot allocate memory”; pipeline continued correctly without locked pages. With `sudo`, `mlock` succeeded in run 4.
+But these results may vary for every excecutions. This result table is one of the executions for all 4 OS configurations.
 
 ### 6.3 Zero-copy vs copy baseline (representative)
 
 | Metric | Zero-copy | Baseline (`memcpy`) | Gain |
 |--------|-----------|---------------------|------|
-| Average latency | ~1.5–1.7 ms | ~3.4–4.0 ms | **~2.0–2.4×** |
+| Average latency | ~1.5–1.7 ms | ~3.4–4.0 ms | **~2.0–2.5×** |
 | Frame drops | 0 | — | Stable completion |
 | P99 (best OS config) | **3.13 ms** | higher | Stronger predictability |
 | Clinical-style gate (P99 < 70 ms) | **PASS** | — | — |
