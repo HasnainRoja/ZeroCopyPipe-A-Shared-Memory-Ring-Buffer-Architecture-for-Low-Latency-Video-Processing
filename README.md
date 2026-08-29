@@ -42,7 +42,7 @@ A parent process creates shared memory and event descriptors, forks the children
 5. Display logs timestamps and latency.
 
 ---
-## 3. Demo video Link for Project Demostration
+## 3. Demo video Link for Project Demonstration
 - [Play in browser](https://drive.google.com/file/d/1GaW89cjR-qgZesWpN3hK30PWXVDGE7g7/preview)
 - [Open in Drive](https://drive.google.com/file/d/1GaW89cjR-qgZesWpN3hK30PWXVDGE7g7/view?usp=sharing)
 ---
@@ -96,7 +96,7 @@ All runs: **600 frames**, **1920×1080 RGB**, **0 drops** on the zero-copy path.
 | mlock OFF, RT ON | 1.536 | 1.834 | 6.044 | 30.763 | 0 |
 | mlock ON, RT ON | 1.476 | 2.053 | 3.127 | 26.652 | 0 |
 
-But these results may vary for every excecutions. This result table is one of the executions for all 4 OS configurations.
+But these results may vary for every executions. This result table is one of the executions for all 4 OS configurations.
 Tail latency varies on laptop/WSL.
 
 ### 6.3 Zero-copy vs copy baseline (representative)
