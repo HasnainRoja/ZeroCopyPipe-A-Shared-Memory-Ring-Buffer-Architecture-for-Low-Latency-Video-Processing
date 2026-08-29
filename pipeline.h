@@ -52,9 +52,7 @@ typedef struct {
     uint64_t   edge_done_ns;
     uint64_t   overlay_done_ns;
     uint64_t   display_done_ns;
-    atomic_int slot_state;   /* was plain int — made atomic to remove the data race
-                                 flagged earlier (producer/consumers/display all
-                                 touch this across process boundaries) */
+    atomic_int slot_state;   
     atomic_int ref_count;
 } FrameMetadata;
 
